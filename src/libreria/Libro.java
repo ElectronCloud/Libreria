@@ -7,18 +7,23 @@ package libreria;
 
 /**
  *
- * @author Hernán Quiroga
+ * @author Hernan Quiroga
  */
+
 public class Libro {
+    /**
+     * Clase que permite crear objetos tipo Libro, los cuales tienen ciertas caracteristicas, que a su vez
+     * son suministradas por el enecargado de la libreria
+     */
     private String nombre;
     private String autor;
     private String editorial;
     private double precio;
-    private boolean tipo;//si es verdadero el tipo es universitario, si no es literario
-    private boolean estado;//si es verdadero el tipo es nuevo, si no es de segunda mano
+    private String tipo;//si es verdadero el tipo es universitario, si no es literario
+    private String estado;//si es verdadero el tipo es nuevo, si no es usado
     private double descuento;
 
-    public Libro(String nombre, String autor, String editorial, double precio, boolean tipo, boolean estado, double descuento) {
+    public Libro(String nombre, String autor, String editorial, double precio, String tipo, String estado, double descuento) {
         this.nombre = nombre;
         this.autor = autor;
         this.editorial = editorial;
@@ -28,7 +33,7 @@ public class Libro {
         this.descuento = descuento;
     }
 
-    public Libro(String nombre, String autor, String editorial, double precio, boolean tipo, boolean estado) {
+    public Libro(String nombre, String autor, String editorial, double precio, String tipo, String estado) {
         this.nombre = nombre;
         this.autor = autor;
         this.editorial = editorial;
@@ -69,21 +74,23 @@ public class Libro {
         this.precio = precio;
     }
 
-    public boolean isTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(boolean tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
-    public boolean isEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
+
+   
 
     public double getDescuento() {
         return descuento;
