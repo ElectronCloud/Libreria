@@ -7,7 +7,7 @@ package libreria;
 
 /**
  *
- * @author Hernan Quiroga
+ * @author Juan Carrero
  */
 
 public class Libro {

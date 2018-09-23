@@ -7,7 +7,7 @@ package libreria;
 import java.util.Scanner;
 /**
  *
- * @author Hernan Quiroga
+ * @author Juan Carrero
  */
 public class Libreria {
     
