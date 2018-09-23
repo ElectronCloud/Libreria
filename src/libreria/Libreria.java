@@ -17,21 +17,64 @@ public class Libreria {
      */
     
     private Libro[] libros;
+    private Libro[] pedidos;
 
-    public Libreria(Libro[] libros) {
+    public Libreria(Libro[] libros, Libro[] pedidos) {
         this.libros = libros;
+        this.pedidos= pedidos;
     }
 
     public static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
+        
+        /*
+        Creacion de libros en el inventario y su almaceniamiento en el arreglo
+        */
+      
         Libro cienAñosSoledad = new Libro("Cien anios de soledad", "Gabriel Garcia Marquez", "Planeta", 33000, "Literario", "Usado");
         Libro levedadDelSer = new Libro("La insoportable levedad del ser", "Milan Kundera", "Acantilado", 40000, "Literario", "Nuevo");
-        Libro[] libros = new Libro[10];
+        Libro manPsiClinica = new Libro("Manual de Psiquiatría Clinica", "Benjamin James", "Barcelona Wolters Kluwer", 55000, "Universitario", "Usado");
+        Libro prograC = new Libro("Programacion imperativa con lenguaje C", "Omar Ivan", "Buritica", 28000, "Universitario", "Nuevo");
+        Libro algLineal = new Libro("Algebra Lineal", "Monsalve Gomez", "Rustica", 72000, "Universitario", "Usado");
+        Libro opioNubes = new Libro("Opio en las Nubes", "Chaparro Madiedo", "Icono", 17000, "Literario", "Usado");
+        Libro probsContPsi = new Libro("Problemas contemporaneos en psicología educativa", "Arias Cardona", "La Sabana", 120000, "Universitario", "Nuevo");
+        Libro hamlet = new Libro("Hamlet", "William Shakespeare", "Cono sur", 46000, "Literario", "Usado");
+        Libro balanceCampDisc = new Libro("Balance en un campo discursivo", "Marin Diaz", "Un Pedagogica", 13000, "Universitario", "Usado");
+        Libro sobPoder = new Libro("Sobre el Poder", "William Shakespeare", "Taurus", 63000, "Literario", "Nuevo");
+        Libro[] libros = new Libro[11];
         libros[0] = cienAñosSoledad;
         libros[1] = levedadDelSer;
+        libros[2] = manPsiClinica;
+        libros[3] = prograC;
+        libros[4] = algLineal;
+        libros[5] = opioNubes;
+        libros[6] = probsContPsi;
+        libros[7] = hamlet;
+        libros[8] = balanceCampDisc;
+        libros[9] = sobPoder;
         
+        /*
+        Creacion de libros en la lista de pedidos y su almacenamiento en el arreglo
+        */
         
-        Libreria ruiz = new Libreria(libros);
+        Libro calculoUnaVar = new Libro("Calculo de una variable", "James Stewart", "Cengage Learning", 35000, "Universitario", "Nuevo");
+        Libro divinaComedia = new Libro("La divina comedia", "Dante Alighieri", "Porrua", 15000, "Literario", "Usado");
+        Libro decameron = new Libro("Decameron", "Giovanni Boccaccio", "Catedra", 26000, "Literario", "Nuevo");
+        Libro cirElec = new Libro("Circuitos electricos", "Jesus Fraile Mora", "Prentice Hall", 65000, "Universitario", "Nuevo");
+        Libro meta = new Libro("La metamorfosis", "Franz Kafka", "Alianza Editorial", 20000, "Literario", "Usado");
+        
+        Libro[] pedidos = new Libro[6];
+        pedidos[0]=calculoUnaVar;
+        pedidos[1]=divinaComedia;
+        pedidos[2]=decameron;
+        pedidos[3]=cirElec;
+        pedidos[4]=meta;
+        
+        Libreria ruiz = new Libreria(libros, pedidos);
+        
+        /*
+        Menu de acciones que se pueden realizar en la libreria
+        */
         
         System.out.println("Bienevenido a la libreria Artes Graficas Ruiz");
         System.out.println("Cual es la accion que desea realizar:");
@@ -42,20 +85,15 @@ public class Libreria {
         System.out.println("5. Mostrar inventario");
         System.out.println("6. Anadir libro");
         System.out.println("7. Extraer libro");
+        System.out.print("Opcion: ");
         
         int opcion=scanner.nextInt();
-        
         
         switch (opcion){
             case 1:
                 System.out.println("Ingrese el nombre del libro: ");
                 String nombre=scanner.nextLine();
                 Libro[] resultados1 = ruiz.buscarPorNombre(scanner.nextLine());
-        
-        /*
-          Ciclo for que recorre los libros generados por el metodo anterior y muestra la informacion de cada uno
-        */
-        
         
                 ruiz.mostrarInfo(resultados1);
       
@@ -78,11 +116,10 @@ public class Libreria {
                
                break;
                
-               
                case 4:
                System.out.println("Ingrese el tipo");
                String tipo=scanner.nextLine();
-               Libro[] resultados4 = ruiz.buscarPorEstado(scanner.nextLine());
+               Libro[] resultados4 = ruiz.buscarPorTipo(scanner.nextLine());
                ruiz.mostrarInfo(resultados4);
                
                break;
@@ -93,12 +130,15 @@ public class Libreria {
                break;
                
                case 6:
+                   System.out.println("Anadir a inventario o pedido");
+                   scanner.skip("\n");
+                   String elecc=scanner.nextLine();
                    System.out.println("Ingrese nombre del libro: ");
                    String nomb=scanner.nextLine();
                    System.out.println("Ingrese nombre del autor: ");
-                   String au=scanner.next();
+                   String au=scanner.nextLine();
                    System.out.println("Ingrese la editorial: ");
-                   String editorial=scanner.next();
+                   String editorial=scanner.nextLine();
                    System.out.println("Ingrese el precio: ");
                    double precio=scanner.nextDouble();
                    System.out.println("Ingrese el tipo del libro: ");
@@ -106,21 +146,50 @@ public class Libreria {
                    System.out.println("Ingrese el estado del libro: ");
                    String est=scanner.next();
                    Libro libro= new Libro(nomb,au,editorial,precio,tip,est);
-                   ruiz.anadirLibro(libro);
                    
-               Libro[] resultados6 = ruiz.mostrarInventario();
-               ruiz.mostrarInfo(resultados6);
+                   if("inventario".equals(elecc) || "Inventario".equals(elecc)){
+                       boolean pol=true;
+                   ruiz.anadirLibro(libro, pol);
+                   }
+                   if("pedido".equals(elecc) || "Pedido".equals(elecc)){
+                       boolean pol=false;
+                   ruiz.anadirLibro(libro, pol);
+                   }
+                   
+                   
                break;
+               
+               case 7:
+                   System.out.println("Extraer de inventario o pedido");
+                   scanner.skip("\n");
+                   String sel=scanner.nextLine();
+                   System.out.println("Ingrese el nombre del libro:");
+                   String titulo=scanner.nextLine();
+                   System.out.println("Ingrese el autor:");
+                   String aut=scanner.nextLine();
+                   
+                   if("inventario".equals(sel) || "Inventario".equals(sel)){
+                       boolean pol=true;
+                   ruiz.extraerLibro(titulo, aut, pol);
+                   }
+                   if("pedido".equals(sel) || "Pedido".equals(sel)){
+                       boolean pol=false;
+                   ruiz.extraerLibro(titulo, aut, pol);
+                   }
+                   
+               break;
+               
+               default:
+                    System.out.println("Opcion Invalida");
         }
        
-        
-      
     }
         
+    /**
+     * 
+     * @param libros Recibe como parametro un arreglo de libros para asi poder mostrar la informacion de cada uno
+     */
    public void mostrarInfo(Libro[] libros){
-                /*
-        Ciclo for que recorre los libros generados por el metodo anterior y muestra la informacion de cada uno
-        */
         for(Libro libro:libros){
             if(libro != null){
                 System.out.println("Nombre: "+libro.getNombre());
@@ -131,7 +200,6 @@ public class Libreria {
                 System.out.println("Estado: "+libro.getEstado());
                 System.out.println();
             }
-            
         }
    }
    
@@ -141,7 +209,7 @@ public class Libreria {
      * @return Libros que tienen en su nombre, la palabra de busqueda
      */
     public Libro[] buscarPorNombre(String busqueda){
-        Libro[] librosBuscados = new Libro[10];
+        Libro[] librosBuscados = new Libro[11];
         int contadorLibrosBuscados = 0;
         for (Libro libro : libros) {
             if (libro != null) {
@@ -157,10 +225,10 @@ public class Libreria {
     /**
      * 
      * @param busqueda substring a comparar para el atributo autor del libro
-     * @return Libro que tienen el mismo autor
+     * @return Libros que tienen el mismo autor
      */
     public Libro[] buscarPorAutor(String busqueda){
-        Libro[] librosBuscados = new Libro[10];
+        Libro[] librosBuscados = new Libro[11];
         int contadorLibrosBuscados = 0;
         for (Libro libro : libros) {
             if (libro != null) {
@@ -173,8 +241,14 @@ public class Libreria {
         return librosBuscados;
     }
     
+    /**
+     * 
+     * @param busqueda substring a comparar para el atributo estado del libro
+     * @return Libros que tienen el mismo estado
+     */
+    
     public Libro[] buscarPorEstado(String busqueda){
-        Libro[] librosBuscados = new Libro[10];
+        Libro[] librosBuscados = new Libro[11];
         int contadorLibrosBuscados = 0;
         for (Libro libro : libros) {
             if (libro != null) {
@@ -187,8 +261,14 @@ public class Libreria {
         return librosBuscados;
     }
     
+    /**
+     * 
+     * @param busqueda substring a comparar para el atributo tipo del libro
+     * @return Libros que tienen el mismo tipo
+     */
+    
     public Libro[] buscarPorTipo(String busqueda){
-        Libro[] librosBuscados = new Libro[10];
+        Libro[] librosBuscados = new Libro[11];
         int contadorLibrosBuscados = 0;
         for (Libro libro : libros) {
             if (libro != null) {
@@ -201,8 +281,13 @@ public class Libreria {
         return librosBuscados;
     }
     
+    /**
+     * 
+     * @return Conjunto de libros que se encuentran actualmente en el inventario de la libreria
+     */
+    
     public Libro[] mostrarInventario(){
-        Libro[] librosBuscados = new Libro[10];
+        Libro[] librosBuscados = new Libro[11];
         int contadorLibrosBuscados = 0;
         for (Libro libro : libros) {
             if (libro != null) {
@@ -215,8 +300,32 @@ public class Libreria {
         return librosBuscados;
     }
     
-    public boolean anadirLibro(Libro libro){
-        
+    /**
+     * 
+     * @return Libros que estan en la lista de pedidos por parte de la libreria
+     */
+    
+    public Libro[] mostrarPedidos(){
+        Libro[] librosBuscados = new Libro[11];
+        int contadorLibrosBuscados = 0;
+        for (Libro libro : pedidos) {
+            if (libro != null) {
+                    librosBuscados[contadorLibrosBuscados] = libro;
+                    contadorLibrosBuscados++;
+            }
+        }
+        return librosBuscados;
+    }
+    
+    /**
+     * 
+     * @param libro libro que sera anadido a la coleccion de libros del inventario o de pedidos
+     * @param grup Identifica a que coleccion se va a anadir el libro
+     * @return booleano que permite saber si se adiciono el libro correctamente
+     */
+    
+    public boolean anadirLibro(Libro libro, boolean grup){
+        if(grup==true){
         for (int i=0; i<libros.length; i++) {
            if(libros[i]==null){
                 libros[i]=libro;
@@ -225,7 +334,45 @@ public class Libreria {
             }
            
         }
+        }
+        if(grup==false){
+        for (int i=0; i<pedidos.length; i++) {
+           if(pedidos[i]==null){
+                pedidos[i]=libro;
+                System.out.println("Adicion exitosa");
+                return true;
+            }
+           
+        }
+        }
         return false;
-    
 }
+    
+    /**
+     * 
+     * @param titulo Identidica el nombre del libro a extraer
+     * @param autor Identifica el autor del libro a extraer, informacion necesario por si existe mas de un libro
+     * con el mismo nombre
+     * @param grop Identifica la coleccion de libros a la cual se va a extraer un libro
+     * @return booleano que permite saber si se llevo a cabo la extraccion satisfactoriamente
+     */
+    public boolean extraerLibro(String titulo, String autor, boolean grop){
+        if(grop==true){
+        for(int i=0; i<libros.length; i++){
+            if(libros[i]!= null && libros[i].getNombre().toLowerCase().contains(titulo.toLowerCase())&& libros[i].getAutor().toLowerCase().contains(autor.toLowerCase())){
+                libros[i]=null;
+                return true;
+            }
+        }
+        }
+        if(grop==false){
+        for(int i=0; i<pedidos.length; i++){
+            if(pedidos[i]!= null && pedidos[i].getNombre().toLowerCase().contains(titulo.toLowerCase())&& pedidos[i].getAutor().toLowerCase().contains(autor.toLowerCase())){
+                pedidos[i]=null;
+                return true;
+            }
+        }
+        }
+        return false;
+    }
 }
