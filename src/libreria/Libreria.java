@@ -31,15 +31,15 @@ public class Libreria {
         Creacion de libros en el inventario y su almaceniamiento en el arreglo
         */
       
-        Libro cienAñosSoledad = new Libro("Cien anios de soledad", "Gabriel Garcia Marquez", "Planeta", 33000, "Literario", "Usado");
+        Libro cienAñosSoledad = new Libro("Cien anios de soledad", "Gabriel Garcia Marquez", "Planeta", 33000, "Literario", "Usado", 12);
         Libro levedadDelSer = new Libro("La insoportable levedad del ser", "Milan Kundera", "Acantilado", 40000, "Literario", "Nuevo");
-        Libro manPsiClinica = new Libro("Manual de Psiquiatría Clinica", "Benjamin James", "Barcelona Wolters Kluwer", 55000, "Universitario", "Usado");
+        Libro manPsiClinica = new Libro("Manual de Psiquiatría Clinica", "Benjamin James", "Barcelona Wolters Kluwer", 55000, "Universitario", "Usado", 10);
         Libro prograC = new Libro("Programacion imperativa con lenguaje C", "Omar Ivan", "Buritica", 28000, "Universitario", "Nuevo");
-        Libro algLineal = new Libro("Algebra Lineal", "Monsalve Gomez", "Rustica", 72000, "Universitario", "Usado");
+        Libro algLineal = new Libro("Algebra Lineal", "Monsalve Gomez", "Rustica", 72000, "Universitario", "Usado", 15);
         Libro opioNubes = new Libro("Opio en las Nubes", "Chaparro Madiedo", "Icono", 17000, "Literario", "Usado");
-        Libro probsContPsi = new Libro("Problemas contemporaneos en psicología educativa", "Arias Cardona", "La Sabana", 120000, "Universitario", "Nuevo");
+        Libro probsContPsi = new Libro("Problemas contemporaneos en psicología educativa", "Arias Cardona", "La Sabana", 120000, "Universitario", "Nuevo", 8);
         Libro hamlet = new Libro("Hamlet", "William Shakespeare", "Cono sur", 46000, "Literario", "Usado");
-        Libro balanceCampDisc = new Libro("Balance en un campo discursivo", "Marin Diaz", "Un Pedagogica", 13000, "Universitario", "Usado");
+        Libro balanceCampDisc = new Libro("Balance en un campo discursivo", "Marin Diaz", "Un Pedagogica", 13000, "Universitario", "Usado", 13.7);
         Libro sobPoder = new Libro("Sobre el Poder", "William Shakespeare", "Taurus", 63000, "Literario", "Nuevo");
         Libro[] libros = new Libro[11];
         libros[0] = cienAñosSoledad;
@@ -198,6 +198,7 @@ public class Libreria {
                 System.out.println("Precio: "+libro.getPrecio());
                 System.out.println("Tipo: "+libro.getTipo());
                 System.out.println("Estado: "+libro.getEstado());
+                System.out.println("Descuento: "+libro.getDescuento());
                 System.out.println();
             }
         }
@@ -321,16 +322,14 @@ public class Libreria {
      * 
      * @param libro libro que sera anadido a la coleccion de libros del inventario o de pedidos
      * @param grup Identifica a que coleccion se va a anadir el libro
-     * @return booleano que permite saber si se adiciono el libro correctamente
      */
     
-    public boolean anadirLibro(Libro libro, boolean grup){
+    public void anadirLibro(Libro libro, boolean grup){
         if(grup==true){
         for (int i=0; i<libros.length; i++) {
            if(libros[i]==null){
                 libros[i]=libro;
                 System.out.println("Adicion exitosa");
-                return true;
             }
            
         }
@@ -340,12 +339,10 @@ public class Libreria {
            if(pedidos[i]==null){
                 pedidos[i]=libro;
                 System.out.println("Adicion exitosa");
-                return true;
             }
            
         }
         }
-        return false;
 }
     
     /**
@@ -354,14 +351,12 @@ public class Libreria {
      * @param autor Identifica el autor del libro a extraer, informacion necesario por si existe mas de un libro
      * con el mismo nombre
      * @param grop Identifica la coleccion de libros a la cual se va a extraer un libro
-     * @return booleano que permite saber si se llevo a cabo la extraccion satisfactoriamente
      */
-    public boolean extraerLibro(String titulo, String autor, boolean grop){
+    public void extraerLibro(String titulo, String autor, boolean grop){
         if(grop==true){
         for(int i=0; i<libros.length; i++){
             if(libros[i]!= null && libros[i].getNombre().toLowerCase().contains(titulo.toLowerCase())&& libros[i].getAutor().toLowerCase().contains(autor.toLowerCase())){
                 libros[i]=null;
-                return true;
             }
         }
         }
@@ -369,10 +364,8 @@ public class Libreria {
         for(int i=0; i<pedidos.length; i++){
             if(pedidos[i]!= null && pedidos[i].getNombre().toLowerCase().contains(titulo.toLowerCase())&& pedidos[i].getAutor().toLowerCase().contains(autor.toLowerCase())){
                 pedidos[i]=null;
-                return true;
             }
         }
         }
-        return false;
     }
 }
