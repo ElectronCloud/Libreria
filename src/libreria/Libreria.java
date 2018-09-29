@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package libreria;
 import java.util.Scanner;
+import java.util.ArrayList;
 /**
  *
  * @author Juan Carrero
@@ -16,21 +12,21 @@ public class Libreria {
      * @param args the command line arguments
      */
     
-    private Libro[] libros;
-    private Libro[] pedidos;
+    private ArrayList<Libro>libros;
+    private ArrayList<Libro> pedidos;
 
-    public Libreria(Libro[] libros, Libro[] pedidos) {
+    public Libreria(ArrayList<Libro> libros, ArrayList<Libro> pedidos) {
         this.libros = libros;
-        this.pedidos= pedidos;
+        this.pedidos = pedidos;
     }
-
+    
     public static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         
         /*
-        Creacion de libros en el inventario y su almaceniamiento en el arreglo
+        Creacion de libros en el inventario y su almaceniamiento en el arraylist
         */
-      
+        ArrayList<Libro>libros=new ArrayList<Libro>();
         Libro cienAñosSoledad = new Libro("Cien anios de soledad", "Gabriel Garcia Marquez", "Planeta", 33000, "Literario", "Usado", 12);
         Libro levedadDelSer = new Libro("La insoportable levedad del ser", "Milan Kundera", "Acantilado", 40000, "Literario", "Nuevo");
         Libro manPsiClinica = new Libro("Manual de Psiquiatría Clinica", "Benjamin James", "Barcelona Wolters Kluwer", 55000, "Universitario", "Usado", 10);
@@ -41,21 +37,22 @@ public class Libreria {
         Libro hamlet = new Libro("Hamlet", "William Shakespeare", "Cono sur", 46000, "Literario", "Usado");
         Libro balanceCampDisc = new Libro("Balance en un campo discursivo", "Marin Diaz", "Un Pedagogica", 13000, "Universitario", "Usado", 13.7);
         Libro sobPoder = new Libro("Sobre el Poder", "William Shakespeare", "Taurus", 63000, "Literario", "Nuevo");
-        Libro[] libros = new Libro[11];
-        libros[0] = cienAñosSoledad;
-        libros[1] = levedadDelSer;
-        libros[2] = manPsiClinica;
-        libros[3] = prograC;
-        libros[4] = algLineal;
-        libros[5] = opioNubes;
-        libros[6] = probsContPsi;
-        libros[7] = hamlet;
-        libros[8] = balanceCampDisc;
-        libros[9] = sobPoder;
+        libros.add(cienAñosSoledad);
+        libros.add(levedadDelSer);
+        libros.add(manPsiClinica);
+        libros.add(prograC);
+        libros.add(algLineal);
+        libros.add(opioNubes);
+        libros.add(probsContPsi);
+        libros.add(hamlet);
+        libros.add(balanceCampDisc);
+        libros.add(sobPoder);
         
         /*
-        Creacion de libros en la lista de pedidos y su almacenamiento en el arreglo
+        Creacion de libros en la lista de pedidos y su almacenamiento en el arraylist
         */
+        
+        ArrayList<Libro>pedidos=new ArrayList<Libro>();
         
         Libro calculoUnaVar = new Libro("Calculo de una variable", "James Stewart", "Cengage Learning", 35000, "Universitario", "Nuevo");
         Libro divinaComedia = new Libro("La divina comedia", "Dante Alighieri", "Porrua", 15000, "Literario", "Usado");
@@ -63,12 +60,11 @@ public class Libreria {
         Libro cirElec = new Libro("Circuitos electricos", "Jesus Fraile Mora", "Prentice Hall", 65000, "Universitario", "Nuevo");
         Libro meta = new Libro("La metamorfosis", "Franz Kafka", "Alianza Editorial", 20000, "Literario", "Usado");
         
-        Libro[] pedidos = new Libro[6];
-        pedidos[0]=calculoUnaVar;
-        pedidos[1]=divinaComedia;
-        pedidos[2]=decameron;
-        pedidos[3]=cirElec;
-        pedidos[4]=meta;
+        pedidos.add(calculoUnaVar);
+        pedidos.add(divinaComedia);
+        pedidos.add(decameron);
+        pedidos.add(cirElec);
+        pedidos.add(meta);
         
         Libreria ruiz = new Libreria(libros, pedidos);
         
@@ -93,8 +89,7 @@ public class Libreria {
             case 1:
                 System.out.println("Ingrese el nombre del libro: ");
                 String nombre=scanner.nextLine();
-                Libro[] resultados1 = ruiz.buscarPorNombre(scanner.nextLine());
-        
+                ArrayList<Libro>resultados1= ruiz.buscarPorNombre(scanner.nextLine());
                 ruiz.mostrarInfo(resultados1);
       
         break;
@@ -102,8 +97,7 @@ public class Libreria {
            case 2:
                 System.out.println("Ingrese el nombre del autor");
                 String autor=scanner.nextLine();
-                Libro[] resultados2 = ruiz.buscarPorAutor(scanner.nextLine());
-                
+                ArrayList<Libro> resultados2 = ruiz.buscarPorAutor(scanner.nextLine());
                 ruiz.mostrarInfo(resultados2);
                 
          break;
@@ -111,7 +105,7 @@ public class Libreria {
            case 3:
                System.out.println("Ingrese el estado");
                String estado=scanner.nextLine();
-               Libro[] resultados3 = ruiz.buscarPorEstado(scanner.nextLine());
+               ArrayList<Libro> resultados3 = ruiz.buscarPorEstado(scanner.nextLine());
                ruiz.mostrarInfo(resultados3);
                
                break;
@@ -119,13 +113,13 @@ public class Libreria {
                case 4:
                System.out.println("Ingrese el tipo");
                String tipo=scanner.nextLine();
-               Libro[] resultados4 = ruiz.buscarPorTipo(scanner.nextLine());
+               ArrayList<Libro> resultados4 = ruiz.buscarPorTipo(scanner.nextLine());
                ruiz.mostrarInfo(resultados4);
                
                break;
                
                case 5:
-               Libro[] resultados5 = ruiz.mostrarInventario();
+               ArrayList<Libro> resultados5 = ruiz.mostrarInventario();
                ruiz.mostrarInfo(resultados5);
                break;
                
@@ -187,10 +181,11 @@ public class Libreria {
         
     /**
      * 
-     * @param libros Recibe como parametro un arreglo de libros para asi poder mostrar la informacion de cada uno
+     * @param lib Recibe como parametro un arraylist de libros para asi poder mostrar la informacion de cada uno
      */
-   public void mostrarInfo(Libro[] libros){
-        for(Libro libro:libros){
+    
+   public void mostrarInfo(ArrayList<Libro> lib){
+        for(Libro libro:lib){
             if(libro != null){
                 System.out.println("Nombre: "+libro.getNombre());
                 System.out.println("Autor: "+libro.getAutor());
@@ -198,44 +193,39 @@ public class Libreria {
                 System.out.println("Precio: "+libro.getPrecio());
                 System.out.println("Tipo: "+libro.getTipo());
                 System.out.println("Estado: "+libro.getEstado());
-                System.out.println("Descuento: "+libro.getDescuento());
+                System.out.println("Descuento: "+libro.getDescuento()+"%");
                 System.out.println();
             }
         }
    }
-   
     /**
      * 
      * @param busqueda el substring a comparar
      * @return Libros que tienen en su nombre, la palabra de busqueda
      */
-    public Libro[] buscarPorNombre(String busqueda){
-        Libro[] librosBuscados = new Libro[11];
-        int contadorLibrosBuscados = 0;
+   
+    public ArrayList<Libro> buscarPorNombre(String busqueda){
+        ArrayList<Libro>librosBuscados=new ArrayList();
         for (Libro libro : libros) {
             if (libro != null) {
                 if (libro.getNombre().toLowerCase().contains(busqueda.toLowerCase())) {
-                    librosBuscados[contadorLibrosBuscados] = libro;
-                    contadorLibrosBuscados++;
+                    librosBuscados.add(libro);
                 }
             }
         }
         return librosBuscados;
     }
-    
     /**
      * 
      * @param busqueda substring a comparar para el atributo autor del libro
      * @return Libros que tienen el mismo autor
      */
-    public Libro[] buscarPorAutor(String busqueda){
-        Libro[] librosBuscados = new Libro[11];
-        int contadorLibrosBuscados = 0;
+    public ArrayList<Libro> buscarPorAutor(String busqueda){
+        ArrayList<Libro> librosBuscados = new ArrayList<>();
         for (Libro libro : libros) {
             if (libro != null) {
                 if (libro.getAutor().toLowerCase().contains(busqueda.toLowerCase())) {
-                    librosBuscados[contadorLibrosBuscados] = libro;
-                    contadorLibrosBuscados++;
+                    librosBuscados.add(libro);
                 }
             }
         }
@@ -248,14 +238,12 @@ public class Libreria {
      * @return Libros que tienen el mismo estado
      */
     
-    public Libro[] buscarPorEstado(String busqueda){
-        Libro[] librosBuscados = new Libro[11];
-        int contadorLibrosBuscados = 0;
+    public ArrayList<Libro> buscarPorEstado(String busqueda){
+        ArrayList<Libro> librosBuscados = new ArrayList<>();
         for (Libro libro : libros) {
             if (libro != null) {
                 if (libro.getEstado().toLowerCase().contains(busqueda.toLowerCase())) {
-                    librosBuscados[contadorLibrosBuscados] = libro;
-                    contadorLibrosBuscados++;
+                    librosBuscados.add(libro);
                 }
             }
         }
@@ -268,14 +256,12 @@ public class Libreria {
      * @return Libros que tienen el mismo tipo
      */
     
-    public Libro[] buscarPorTipo(String busqueda){
-        Libro[] librosBuscados = new Libro[11];
-        int contadorLibrosBuscados = 0;
+    public ArrayList<Libro> buscarPorTipo(String busqueda){
+        ArrayList<Libro> librosBuscados = new ArrayList<>();
         for (Libro libro : libros) {
             if (libro != null) {
                 if (libro.getTipo().toLowerCase().contains(busqueda.toLowerCase())) {
-                    librosBuscados[contadorLibrosBuscados] = libro;
-                    contadorLibrosBuscados++;
+                    librosBuscados.add(libro);
                 }
             }
         }
@@ -287,14 +273,11 @@ public class Libreria {
      * @return Conjunto de libros que se encuentran actualmente en el inventario de la libreria
      */
     
-    public Libro[] mostrarInventario(){
-        Libro[] librosBuscados = new Libro[11];
-        int contadorLibrosBuscados = 0;
+    public ArrayList<Libro> mostrarInventario(){
+        ArrayList<Libro> librosBuscados = new ArrayList<>();
         for (Libro libro : libros) {
             if (libro != null) {
-                
-                    librosBuscados[contadorLibrosBuscados] = libro;
-                    contadorLibrosBuscados++;
+                    librosBuscados.add(libro);
                 
             }
         }
@@ -306,13 +289,11 @@ public class Libreria {
      * @return Libros que estan en la lista de pedidos por parte de la libreria
      */
     
-    public Libro[] mostrarPedidos(){
-        Libro[] librosBuscados = new Libro[11];
-        int contadorLibrosBuscados = 0;
+    public ArrayList<Libro> mostrarPedidos(){
+        ArrayList<Libro> librosBuscados = new ArrayList<>();
         for (Libro libro : pedidos) {
             if (libro != null) {
-                    librosBuscados[contadorLibrosBuscados] = libro;
-                    contadorLibrosBuscados++;
+                    librosBuscados.add(libro);
             }
         }
         return librosBuscados;
@@ -326,24 +307,17 @@ public class Libreria {
     
     public void anadirLibro(Libro libro, boolean grup){
         if(grup==true){
-        for (int i=0; i<libros.length; i++) {
-           if(libros[i]==null){
-                libros[i]=libro;
+                libros.add(libro);
                 System.out.println("Adicion exitosa");
-            }
            
-        }
         }
         if(grup==false){
-        for (int i=0; i<pedidos.length; i++) {
-           if(pedidos[i]==null){
-                pedidos[i]=libro;
+                pedidos.add(libro);
                 System.out.println("Adicion exitosa");
-            }
-           
+            
         }
-        }
-}
+    }
+
     
     /**
      * 
@@ -353,19 +327,25 @@ public class Libreria {
      * @param grop Identifica la coleccion de libros a la cual se va a extraer un libro
      */
     public void extraerLibro(String titulo, String autor, boolean grop){
-        if(grop==true){
-        for(int i=0; i<libros.length; i++){
-            if(libros[i]!= null && libros[i].getNombre().toLowerCase().contains(titulo.toLowerCase())&& libros[i].getAutor().toLowerCase().contains(autor.toLowerCase())){
-                libros[i]=null;
+          if(grop==true){
+            for (int i=0; i<libros.size(); i++){
+                Libro libro = libros.get(i);
+                if(libro!= null && libro.getNombre().toLowerCase().contains(titulo.toLowerCase())&& libro.getAutor().toLowerCase().contains(autor.toLowerCase())){
+                libros.remove(libro);
+                
             }
         }
         }
+        
         if(grop==false){
-        for(int i=0; i<pedidos.length; i++){
-            if(pedidos[i]!= null && pedidos[i].getNombre().toLowerCase().contains(titulo.toLowerCase())&& pedidos[i].getAutor().toLowerCase().contains(autor.toLowerCase())){
-                pedidos[i]=null;
+            for (int i=0; i<pedidos.size(); i++){
+                Libro libro = pedidos.get(i);
+                if(libro!= null && libro.getNombre().toLowerCase().contains(titulo.toLowerCase())&& libro.getAutor().toLowerCase().contains(autor.toLowerCase())){
+                pedidos.remove(libro);
+                
             }
         }
         }
     }
+
 }
